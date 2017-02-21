@@ -1,0 +1,91 @@
+Print - function that prints to the terminal
+  Formatters
+    %s string
+    %d decimal
+    %f float
+    %r prints whatever's there
+    %c character
+  Escape Sequences
+    \ General escape character
+    \\ prints a \
+    \" prints a "
+    \' prints a '
+    \n prints a new line
+    \r carrige return (start of line)
+    \a ASCII bell (American Standard Code for Information Interchange)
+    \b backspace
+    \f formfeed (page or section down)
+    \N{name} prints unicode named character
+    \v vertical tab
+    \t horizontal tab
+    \uxxxx hexdecimal unicode character
+    \Uxxxxxxxx 32 bit hex unicode character
+    \ooo octal character
+    \xhh hex character with digits hh
+
+Operators
+
+  # comments
+  = assignment
+  "" strings
+  '' strings (styled for short strings)
+  + addition, concatenation of strings
+  / division
+  * multiplication, repeated call of functions, placeholding all arguments
+  % modulo, format specification, substituting arguments for specifiers
+  , used to compound inputs, separate arguments, etc.
+  . used for decimals in numbers, to call methods
+  () math grouping, used to wrap function arguments
+  [] used to group array elements
+  """ used to begin and end long sections of string text (like HTML <span>)
+  : used to specify the start of a function, followed by indents on the next line
+
+
+  < less than logical
+  > greater than logical
+  <= less than or equal to logical
+  >= logical
+  == equivalency logical
+  != not equal to logical
+  True logical condition, similar to 1
+  False logical condition, similar to 0
+
+while - used to denote while loops, more to be learned
+for - used to denote for loops, more to be learned
+
+raw_input(string prompt)- accepts user input after displaying the string prompt
+from sys import argv - "From the system module, import the arguments from the command line call"
+from os.path import exists "From the OS module, import the exists function"
+argv - the arguments used when calling the python script
+open(filename) - opens the file named filename
+len(data) - returns the length of a sequence (be it strings or other array)
+
+Files
+  Methods:
+    .read() - extracts all the data from the file
+    .readline() - extracts one line from the file
+    .close() - closes the file
+    .seek(position) - can be used to go to relative or specific locations in a file
+    .truncate() - erases the contents of the file
+    .write(data) - writes the contents to the file
+
+  Modes
+  'w' - write, will create a file if one doesn't exist
+  'r' - read, will open file for reading
+  'a' - append, will open file to be added to
+  '+' - read and write
+
+echo - used to create files from command line "echo "Text" > filename.txt
+
+Functions
+
+  def - begins definition of function
+  return - returns some computation of the function
+
+  example declaration
+
+  def function_name(*args):
+    function commands
+
+exists(filename) - checks if the file with the specified name exists
+os.path - module of various goodies that contain utilities for navigating filesystems
