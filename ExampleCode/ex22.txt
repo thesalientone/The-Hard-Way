@@ -31,7 +31,7 @@ Operators
   '' strings (styled for short strings)
   + addition, concatenation of strings
   / division
-  * multiplication, repeated call of functions, placeholding all arguments
+  * multiplication, multiplying strings, placeholding all arguments
   % modulo, format specification, substituting arguments for specifiers
   , used to compound inputs, separate arguments, etc.
   . used for decimals in numbers, to call methods
