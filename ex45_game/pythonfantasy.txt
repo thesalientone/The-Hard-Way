@@ -1,0 +1,19 @@
+A text based RPG based loosely on Final Fantasy.
+
+"Four heroes of light embark on a journey across the world to save the world
+from an ancient evil. Along the way the heroes must fight monsters and solve puzzles
+while collecting the crystals of light."
+
+Engine
+Map
+Scene
+Battle
+Hero
+Monster
+menu
+  *items
+  *stats
+  *save
+  *****help
+  *****options
+  *****equip

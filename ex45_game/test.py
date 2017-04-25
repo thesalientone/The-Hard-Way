@@ -33,3 +33,6 @@ dictionary1 = { 'a' : 5 , 'b' : 33 , 'c': 44, 'd' : ClassTest() }
 ivd = { v : k for k, v in dictionary1.items()}
 
 print ivd[5]
+
+
+print ClassTest.var1
