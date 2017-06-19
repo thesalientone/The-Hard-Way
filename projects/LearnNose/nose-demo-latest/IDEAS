@@ -1,0 +1,3 @@
+allow '-' in front of attrs instead of ! (shell escaping!)
+allow multiple -w for multihome
+plugin/etc that allows for per-test output saving

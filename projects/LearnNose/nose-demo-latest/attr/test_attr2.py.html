@@ -1,0 +1,26 @@
+<pre>
+<tt>
+<i><font color="#9A1900">###</font></i>
+<i><font color="#9A1900">### attribute lists and sets</font></i>
+<i><font color="#9A1900">###</font></i>
+<i><font color="#9A1900">### basic stuff:</font></i>
+<i><font color="#9A1900">###</font></i>
+<i><font color="#9A1900">###   'nosetests -a tags=a' will run both testme5 and testme6</font></i>
+<i><font color="#9A1900">###   'nosetests -a tags=b' will run only testme5</font></i>
+<i><font color="#9A1900">###   'nosetests -a tags=c' will run only testme6</font></i>
+<i><font color="#9A1900">###   'nosetests -a tags=b,tags=c' will run neither.</font></i>
+<i><font color="#9A1900">###   'nosetests -a tags=b -a tags=c' will run both.</font></i>
+<i><font color="#9A1900">###</font></i>
+<i><font color="#9A1900">###</font></i>
+
+<b><font color="#0000FF">def</font></b> <b><font color="#000000">testme5</font></b><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">:</font>
+    <b><font color="#0000FF">assert</font></b> <font color="#993399">1</font>
+
+testme5<font color="#990000">.</font>tags <font color="#990000">=</font> <font color="#990000">[</font><font color="#FF0000">'a'</font><font color="#990000">,</font> <font color="#FF0000">'b'</font><font color="#990000">]</font>
+
+<b><font color="#0000FF">def</font></b> <b><font color="#000000">testme6</font></b><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">:</font>
+    <b><font color="#0000FF">assert</font></b> <font color="#993399">1</font>
+    
+testme6<font color="#990000">.</font>tags <font color="#990000">=</font> <font color="#990000">[</font><font color="#FF0000">'a'</font><font color="#990000">,</font> <font color="#FF0000">'c'</font><font color="#990000">]</font>
+</tt>
+</pre>

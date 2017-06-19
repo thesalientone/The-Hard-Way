@@ -1,0 +1,51 @@
+#! /bin/bash
+
+echo 'RUNNING simple/'
+nosetests -w simple/ -v
+
+###
+
+echo 'RUNNING basic/'
+nosetests -w basic/ -v
+
+echo 'RUNNING basic/ with doctests'
+nosetests -w basic/ --with-doctest
+
+###
+
+echo 'Running attr/'
+nosetests -w attr/ -v || echo FAILED
+
+echo 'Running attr/ with !will_fail'
+nosetests -w attr/ -a \!will_fail -v && echo DIDN\'T FAIL
+
+echo 'Running attr/ with will_fail'
+nosetests -w attr/ -a will_fail -v || echo FAILED
+
+echo 'Running attr/ with will_fail=False'
+nosetests -w attr/ -a will_fail=False -v && echo DIDN\'T FAIL
+
+echo 'Running attr/ with tags=a'
+nosetests -w attr/ -a tags=a -v
+
+echo 'Running attr/ with tags=b'
+nosetests -w attr/ -a tags=b -v
+
+echo 'Running attr/ with tags=c'
+nosetests -w attr/ -a tags=c -v
+
+echo 'Running attr/ with tags=a AND tags=b'
+nosetests -w attr/ -a tags=b -a tags=b -v
+
+echo 'Running attr/ with tags=a OR tags=b'
+nosetests -w attr/ -a tags=a,tags=b -v
+
+###
+
+echo 'Running multihome in non-multihome mode'
+nosetests -w multihome/home1 -v
+nosetests -w multihome/home2 -v
+nosetests -w multihome/home2 -w multihome/home1 -v && echo only executes one...
+
+echo 'Running multihome-nose'
+multihome/multihome-nose -v

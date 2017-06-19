@@ -1,0 +1,185 @@
+RUNNING simple/
+test_a (test_stuff.ExampleTest) ... ok
+test_stuff.test_b ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.005s
+
+OK
+RUNNING basic/
+MODULE SETUP
+test_module.TestClass.test_1 ... CLASS SETUP
+CLASS TEST_1
+CLASS TEARDOWN
+ok
+test_module.TestClass.test_2 ... CLASS SETUP
+CLASS TEST_2
+CLASS TEARDOWN
+ok
+test_module.test_me ... ok
+test_module.test_me_2 ... ok
+test_module.test_complex ... FN COMPLEX SETUP
+FN COMPLEX TEST
+FN COMPLEX TEARDOWN
+ok
+test_module.test_check_sum:(0, 1, 1) ... ok
+test_module.test_check_sum:(1, 2, 3) ... ok
+test_module.test_check_sum:(2, 3, 5) ... ok
+test_module.test_check_sum:(3, 4, 7) ... ok
+test_module.test_check_sum:(4, 5, 9) ... ok
+MODULE TEARDOWN
+PACKAGE SETUP
+test_package.test_at_root ... PACKAGE: test_at_root
+ok
+test_package.test_subpackage.test_in_subpackage ... ok
+test_package.testmodule1.test_in_submod1 ... ok
+test_package.testmodule2.test_in_submod2 ... ok
+PACKAGE TEARDOWN
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.014s
+
+OK
+RUNNING basic/ with doctests
+.MODULE SETUP
+CLASS SETUP
+CLASS TEST_1
+CLASS TEARDOWN
+.CLASS SETUP
+CLASS TEST_2
+CLASS TEARDOWN
+...FN COMPLEX SETUP
+FN COMPLEX TEST
+FN COMPLEX TEARDOWN
+......MODULE TEARDOWN
+PACKAGE SETUP
+PACKAGE: test_at_root
+....PACKAGE TEARDOWN
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.016s
+
+OK
+Running attr/
+test_attr.testme1 ... ok
+test_attr.testme2 ... FAIL
+test_attr.testme3 ... ok
+test_attr2.testme5 ... ok
+test_attr2.testme6 ... ok
+
+======================================================================
+FAIL: /disk/u/t/dev/misc/nose-demo/attr: test_attr.testme2
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.3/site-packages/nose-0.9.0a2-py2.3.egg/nose/case.py", line 52, in runTest
+    self.testFunc()
+  File "/disk/u/t/dev/misc/nose-demo/attr/test_attr.py", line 16, in testme2
+    assert 0
+AssertionError
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.005s
+
+FAILED (failures=1)
+FAILED
+Running attr/ with !will_fail
+test_attr.testme1 ... ok
+test_attr.testme3 ... ok
+test_attr2.testme5 ... ok
+test_attr2.testme6 ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.004s
+
+OK
+DIDN'T FAIL
+Running attr/ with will_fail
+test_attr.testme2 ... FAIL
+
+======================================================================
+FAIL: /disk/u/t/dev/misc/nose-demo/attr: test_attr.testme2
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.3/site-packages/nose-0.9.0a2-py2.3.egg/nose/case.py", line 52, in runTest
+    self.testFunc()
+  File "/disk/u/t/dev/misc/nose-demo/attr/test_attr.py", line 16, in testme2
+    assert 0
+AssertionError
+
+----------------------------------------------------------------------
+Ran 1 test in 0.004s
+
+FAILED (failures=1)
+FAILED
+Running attr/ with will_fail=False
+test_attr.testme1 ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+OK
+DIDN'T FAIL
+Running attr/ with tags=a
+test_attr2.testme5 ... ok
+test_attr2.testme6 ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.003s
+
+OK
+Running attr/ with tags=b
+test_attr2.testme5 ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+OK
+Running attr/ with tags=c
+test_attr2.testme6 ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+OK
+Running attr/ with tags=a AND tags=b
+test_attr2.testme5 ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+OK
+Running attr/ with tags=a OR tags=b
+test_attr2.testme5 ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+OK
+Running multihome in non-multihome mode
+test_in_home1.test ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+OK
+test_in_home2.test ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+OK
+test_in_home1.test ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+OK
+only executes one...
+Running multihome-nose
+test_in_home1.test ... ok
+test_in_home2.test ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.005s
+
+OK

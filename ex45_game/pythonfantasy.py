@@ -26,7 +26,7 @@ class Engine(object):
         while current_scene != last_scene:
 
             if next_scene_name in ['menu', 'inv', 'save', 'equip',
-                                   'load', 'mhelp', 'debug']:
+                                   'load', 'mhelp', 'debug', 'magic']:
                 leaving_menu = 1
                 if next_scene_name != 'menu':
 
@@ -277,6 +277,13 @@ The following classes are available:
         self.display_mp()
         print "-" * 80
 
+    def display_panel_numbered(self):
+        print "-" * 80
+        self.display_hero_names_numbered()
+        self.display_hp()
+        self.display_mp()
+        print "-" * 80
+
     def display_full_panel(self):
         stat_names = ['name', 'job', 'lev', 'hp', 'mp', 'exp', 'mag', 'mdef',
                       'stre', 'defe', 'speed']
@@ -363,7 +370,9 @@ class Hero(object):
     action_text = """
     Select an action: (Press enter to skip turn)
     1. Attack
-    4. Use item
+    2. Magic
+    3. Use item
+    4. Flee
 >"""
 
 
@@ -398,6 +407,7 @@ class Hero(object):
         self.helm = None
         self.chest = None
         self.acc = None
+        self.spells = []
 
 
     def initialize(self):
@@ -445,7 +455,9 @@ class Hero(object):
         action = raw_input(self.action_text)
         if action in ['1', 'attack', 'Attack', 'a', 'A']:
             return self.attack(target_list)
-        elif action in ['4', 'item', 'i', 'I', 'Item']:
+        elif action in ['2', 'magic', 'Magic', 'm', 'M']:
+            return self.magic(target_list)
+        elif action in ['3', 'item', 'i', 'I', 'Item']:
             InventoryMenu().enter('battle')
             return 0, 0
         elif not action:
@@ -501,6 +513,110 @@ class Hero(object):
         stat_names = ['mag', 'mdef', 'stre', 'defe', 'speed', 'maxhp', 'maxmp']
         for i in range(7):
             self.display_levelup_stat(stat_names[i], old_stats[i], new_stats[i])
+
+    def display_spells(self):
+        print "%s Spells: " % (self.name)
+        print '-' * 80
+        spell_count = len(self.spells)
+        y = enumerate(self.spells, 1)
+        spells_numbered = list(y)
+
+        spell_text = []
+        for spell in spells_numbered:
+            spell_text.append("%d. %s" % (spell[0], spell[1].name.upper()))
+        extend_amount = (4 - ((len(self.spells) + 4) % 4))
+
+        for x in range(extend_amount):
+            spell_text.append(" ")
+
+        i = 0
+        display_text = "{:>10}" * 4
+        while i <= spell_count:
+            #print "Spell %r is number %d" % (spell_text[i], i)
+            print display_text.format(*spell_text[i:i+4])
+
+            i += 4
+        print '-' * 80
+
+    def generate_magic_dmg(self, spell, monster):
+
+        delta = self.sword.matt + self.helm.matt + self.chest.matt
+        D = (self.mag / 2) + delta
+        self.mp -= spell.mp
+        damage = (D + D * random() - monster.mdef) * spell.potency
+        return math.ceil(damage)
+
+    def generate_magic_healing(self, spell):
+        delta = self.sword.matt + self.helm.matt + self.chest.matt
+        D = (self.mag / 2) + delta
+        damage = spell.potency * (D + D * random())
+        return math.ceil(damage)
+
+    def use_spell(self, spell,  target):
+        if target.__class__ not in Hero_Classes:
+            pass # Battle use of spell on monster
+        else:
+            if self.mp >= spell.mp:
+                beforehp = target.hp
+                healing_amount = self.generate_magic_healing(spell)
+                target.hp += healing_amount
+                self.mp -= spell.mp
+                if target.hp > target.maxhp:
+                    target.hp = target.maxhp
+                print "Restored %d hp to %s" % (taget.hp - beforehp, target.name)
+    def magic(self, target_list):
+        spell = self.get_spell()
+        if spell:
+
+            hero_list = PARTY.get_party_members()
+            if spell.foe_target == 'friend':
+                PARTY.display_panel_numbered()
+                target_choice = raw_input("\n>")
+                if (int(target_choice) <= 4 ) and (int(target_choice) >= 1):
+                    hero.use_spell(spell, hero_list[int(target_choice) - 1])
+                    return 0, 0
+                else:
+                    print "Please select a hero numbered 1 through 4"
+                    return self.act(target_list)
+            else:
+                self.printtargets(target_list)
+                target = raw_input(">")
+                if target.isdigit():
+                    target = int(target)
+                    #print range(1, len(target_list[4:]) + 1)
+                    if target not in range(1, len(target_list[4:]) +1):
+                        print "Target out of range."
+                        return self.attack(target_list)
+                    monster = target_list[3 + target].__class__.__name__
+
+                    if self.mp > spell.mp:
+                        damage = self.generate_magic_dmg(spell, target_list[3 + target])
+                        battleborders("%s blasted %s doing %d damage." % (self.name, monster, damage))
+
+                        return damage, 3 + target
+                    else:
+                        print "Not enough mp. "
+                        return 0, 0
+                else:
+                    print "Please enter a number."
+                    return self.act(target_list)
+        else:
+            return self.act(target_list)
+    def get_spell(self):
+        if len(self.spells) == 0 :
+            print "Hero has no spells. "
+            return None
+        else:
+            self.display_spells()
+            print "Select spell number"
+            spell_choice = raw_input("\n>")
+            if spell_choice.isdigit():
+                spell_choice = int(spell_choice)
+                return self.spells[spell_choice - 1]
+
+            else:
+                print "Enter a proper spell number."
+                return get_spell()
 
 class Warrior(Hero):
 
@@ -574,6 +690,7 @@ class WhiteMage(Hero):
         self.equip(leatherchestplate, 'chest')
         self.set_stats(1, 100, 10, 7, 1, 3, 60, 60, 60, 60, 10)
         self.time = 100 / self.speed
+        self.spells.append(cure)
 
 class BlackMage(Hero):
 
@@ -609,7 +726,7 @@ class BlackMage(Hero):
         self.equip(leatherchestplate, 'chest')
         self.set_stats(1, 100, 10, 7, 1, 3, 60, 60, 60,  60, 10)
         self.time = 100 / self.speed
-
+        self.spells.append(fire)
 class Theif(Hero):
 
 
@@ -645,6 +762,77 @@ class Theif(Hero):
         self.equip(bronzechestplate, 'chest')
         self.set_stats(1, 100, 5, 6, 7, 8, 80, 80, 5, 5, 12)
         self.time = 100 / self.speed
+
+class Action(object):
+    def attack(self, target_list):
+        self.printtargets(target_list)
+        target = raw_input(">")
+        if target.isdigit():
+            target = int(target)
+            #print range(1, len(target_list[4:]) + 1)
+            if target not in range(1, len(target_list[4:]) +1):
+                print "Target out of range."
+                return self.attack(target_list)
+            monster = target_list[3 + target].__class__.__name__
+            damage = self.generate_attack_dmg(target_list[3 + target])
+            battleborders("%s attacked %s doing %d damage." % (self.name, monster, damage))
+
+            return damage, 3 + target
+        else:
+            print "Please enter a number."
+            return self.attack(target_list)
+    def printtargets(self, target_list):
+        index = 1
+        print "Enter a target number:"
+        for target in range(4, len(target_list[4:]) + 4):
+            monster = target_list[target]
+            print index, ". ", monster.__class__.__name__, " ",
+            index += 1
+        print ""
+
+    def generate_attack_dmg(self, monster):
+        delta = self.sword.att + self.helm.att + self.chest.att
+        D = (self.stre /2) + delta
+        damage = D + D * random() - monster.defe
+        return math.ceil(damage)
+        #return (random() + randint (5, 10)) * ((-1)  ** 2)
+
+
+
+    def print_levelup(self):
+        battleborders("%s has reached level %d" % (self.name , self.lev))
+
+    def display_levelup_stat(self, stat_txt, old, new):
+        display_format = "{:<10}" + "{:^+10}"
+        display_text = [stat_txt.upper(), new - old]
+        print display_format.format(*display_text)
+
+    def display_levelup_stats(self, old_stats, new_stats):
+        stat_names = ['mag', 'mdef', 'stre', 'defe', 'speed', 'maxhp', 'maxmp']
+        for i in range(7):
+            self.display_levelup_stat(stat_names[i], old_stats[i], new_stats[i])
+
+class Spell(Action):
+
+    def __init__(self, **kwargs):
+        allowed_keys = ['name', 'foe_target', 'multi_target', 'damage_type',
+                        'potency', 'desc', 'mp']
+        self.__dict__.update((k,v) for k, v in kwargs.iteritems() if k in allowed_keys)
+
+
+
+
+
+
+
+
+
+
+
+cure = Spell(name = 'Cure', foe_target = 'friend', damage_type = 'magical', potency = 10, desc = "Restores a small amount of HP", mp = 5)
+fire = Spell(name = 'Fire', foe_target = 'foe', damage_type = 'magical', potency = 10, desc = "Deals a small amount of fire damage.", mp = 5)
+
+
 
 class Monster(object):
     action_text = """
@@ -1166,6 +1354,8 @@ class Menu(Scene):
                 print self.menu_text
             if choice in ['inventory', 'Inventory', 'inv', 'Inv', '2', 'i', 'I']:
                 return 'inv'
+            if choice in ['magic', 'Magic', 'm', 'M', '3']:
+                return 'magic'
             if choice in ['save', 'Save', '5']:
                 return 'save'
             if choice in ['4', 'equip' 'Equip', 'equipment', 'Equipment', 'e', 'E']:
@@ -1213,7 +1403,41 @@ class InventoryMenu(SubMenu):
 class MagicMenu(SubMenu):
 
     def enter(self, scene_name):
-        print "You  have entered the magic menu. more to come"
+        formatborders("MAGIC")
+        hero_number = 1
+        hero_list = []
+        for hero in PARTY.get_party_members():
+            hero_list.append(hero)
+            print str(hero_number) + ".",
+            hero.display_spells()
+            hero_number +=1
+        print "Enter Hero Number of spell to use: (Press enter to return to menu)"
+        hero_choice = raw_input("\n>")
+        if hero_choice in ['1', '2', '3', '4']:
+            if len(hero_list[int(hero_choice) - 1].spells) == 0:
+                print "Hero has no spells yet. Returning to menu"
+            else:
+                print "Enter spell number to use:"
+                hero = hero_list[int(hero_choice) - 1]
+                spell_choice = raw_input("\n>")
+                if spell_choice.isdigit():
+                    spell_choice = int(spell_choice)
+                    if (spell_choice <= len(hero.spells)) and (spell_choice >= 1):
+                        spell = hero.spells[spell_choice - 1]
+                        if spell.foe_target == 'foe':
+                            print spell.desc
+                        else:
+                            print spell.desc
+                            print "Select a hero to use the spell on. "
+                            PARTY.display_panel_numbered()
+                            target_choice = raw_input("\n>")
+                            if (int(target_choice) <= 4 ) and (int(target_choice) >= 1):
+                                hero.use_spell(spell, hero_list[int(target_choice) - 1])
+                            else:
+                                print "Please select a hero numbered 1 through 4"
+                else:
+                    print "Enter a proper spell number. returning to menu."
+
         return 'menu'
 
 
@@ -1902,6 +2126,7 @@ class Debug(Scene):
         8. Enter battle from field 1
         9. kill all heros but hero 4
         10. Levelup heros to 50
+        11. Add Cure and fire to spellbook
 
         """
 
@@ -1937,6 +2162,9 @@ class Debug(Scene):
             for hero in PARTY.get_party_members():
                 for x in range(50):
                     hero.level_up(0)
+        if option == '11':
+            PARTY.hero2.spells.append(cure)
+            PARTY.hero3.spells.append(fire)
 
         return 'menu'
 
@@ -1977,6 +2205,7 @@ class Map(object):
     'finished' : Finished(),
     'menu' : Menu(),
     'inv' : InventoryMenu(),
+    'magic' : MagicMenu(),
     'save' : SaveMenu(),
     'start' : GameStart(),
     'help' : Help(),
@@ -2072,7 +2301,7 @@ def nl():
     print "\n"
 
 PARTY = None
-
+Hero_Classes= [Warrior, BlackMage, WhiteMage, Theif]
 a_map = Map('start')
 
 a_game = Engine(a_map)

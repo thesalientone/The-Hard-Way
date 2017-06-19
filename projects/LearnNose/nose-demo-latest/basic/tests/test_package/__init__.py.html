@@ -1,0 +1,25 @@
+<pre>
+<tt>
+<b><font color="#0000FF">import</font></b> sys
+err <font color="#990000">=</font> sys<font color="#990000">.</font>stderr
+
+initialized <font color="#990000">=</font> False
+
+<b><font color="#0000FF">def</font></b> <b><font color="#000000">setup_package</font></b><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">:</font>                   <i><font color="#9A1900"># or setup, setUp, or setUpPackage</font></i>
+    <b><font color="#0000FF">global</font></b> initialized
+    initialized <font color="#990000">=</font> True
+
+    err<font color="#990000">.</font><b><font color="#000000">write</font></b><font color="#990000">(</font><font color="#FF0000">'PACKAGE SETUP\n'</font><font color="#990000">)</font>
+
+<b><font color="#0000FF">def</font></b> <b><font color="#000000">teardown_package</font></b><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">:</font>                <i><font color="#9A1900"># or teardown, tearDown, tearDownPackage</font></i>
+    <b><font color="#0000FF">global</font></b> initialized
+    initialized <font color="#990000">=</font> False
+
+    err<font color="#990000">.</font><b><font color="#000000">write</font></b><font color="#990000">(</font><font color="#FF0000">'PACKAGE TEARDOWN\n'</font><font color="#990000">)</font>
+
+<b><font color="#0000FF">def</font></b> <b><font color="#000000">test_at_root</font></b><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">:</font>
+    <b><font color="#0000FF">assert</font></b> initialized
+
+    err<font color="#990000">.</font><b><font color="#000000">write</font></b><font color="#990000">(</font><font color="#FF0000">'PACKAGE: test_at_root\n'</font><font color="#990000">)</font>
+</tt>
+</pre>

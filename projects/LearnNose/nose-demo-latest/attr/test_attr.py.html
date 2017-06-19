@@ -1,0 +1,25 @@
+<pre>
+<tt>
+<i><font color="#9A1900">###</font></i>
+<i><font color="#9A1900">### basic attribute stuff -- 'will_fail' is a property on each test, and</font></i>
+<i><font color="#9A1900">### you can test for its truth or its existence.</font></i>
+<i><font color="#9A1900">###</font></i>
+<i><font color="#9A1900">### with '-a !will_fail', testme1 and testme3 are run;</font></i>
+<i><font color="#9A1900">### with '-a will_fail', testme2 is run;</font></i>
+<i><font color="#9A1900">### with '-a will_fail=False', testme1 is run.</font></i>
+<i><font color="#9A1900">###</font></i>
+
+<b><font color="#0000FF">def</font></b> <b><font color="#000000">testme1</font></b><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">:</font>
+    <b><font color="#0000FF">assert</font></b> <font color="#993399">1</font>
+
+testme1<font color="#990000">.</font>will_fail <font color="#990000">=</font> False
+
+<b><font color="#0000FF">def</font></b> <b><font color="#000000">testme2</font></b><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">:</font>
+    <b><font color="#0000FF">assert</font></b> <font color="#993399">0</font>
+
+testme2<font color="#990000">.</font>will_fail <font color="#990000">=</font> True
+
+<b><font color="#0000FF">def</font></b> <b><font color="#000000">testme3</font></b><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">:</font>
+    <b><font color="#0000FF">assert</font></b> <font color="#993399">1</font>
+</tt>
+</pre>

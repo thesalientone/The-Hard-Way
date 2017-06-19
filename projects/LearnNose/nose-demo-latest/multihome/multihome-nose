@@ -1,0 +1,17 @@
+#! /usr/bin/env python
+import os
+import nose, nose.core
+
+
+thisdir = os.path.dirname(os.path.abspath(__file__))
+DIRS=['home1', 'home2']
+
+class MyTestCollector(nose.core.TestCollector):
+    def loadtests(self):
+        for dir in DIRS:
+            dir = os.path.join(thisdir, dir)
+            for test in self.loader.loadTestsFromDir(dir):
+                yield test
+
+nose.run(defaultTest=MyTestCollector)
+print 'hello, world'

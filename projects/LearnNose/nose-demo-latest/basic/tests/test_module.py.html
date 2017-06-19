@@ -1,0 +1,93 @@
+<pre>
+<tt>
+<b><font color="#0000FF">import</font></b> sys
+err <font color="#990000">=</font> sys<font color="#990000">.</font>stderr
+
+initialized <font color="#990000">=</font> False
+
+<i><font color="#9A1900">###</font></i>
+<i><font color="#9A1900">### fixture functions -- run before (setup_module) and after (teardown_module)</font></i>
+<i><font color="#9A1900">### all tests in this module.</font></i>
+<i><font color="#9A1900">###</font></i>
+
+<b><font color="#0000FF">def</font></b> <b><font color="#000000">setup_module</font></b><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">:</font>                     <i><font color="#9A1900"># or 'setup', 'setUp', 'setUpModule'</font></i>
+    <b><font color="#0000FF">global</font></b> initialized
+    initialized <font color="#990000">=</font> True
+
+    err<font color="#990000">.</font><b><font color="#000000">write</font></b><font color="#990000">(</font><font color="#FF0000">'MODULE SETUP\n'</font><font color="#990000">)</font>
+
+<b><font color="#0000FF">def</font></b> <b><font color="#000000">teardown_module</font></b><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">:</font>                  <i><font color="#9A1900"># or 'teardown', 'tearDownModule'</font></i>
+    <b><font color="#0000FF">global</font></b> initialized
+    initialized <font color="#990000">=</font> False
+
+    err<font color="#990000">.</font><b><font color="#000000">write</font></b><font color="#990000">(</font><font color="#FF0000">'MODULE TEARDOWN\n'</font><font color="#990000">)</font>
+
+<i><font color="#9A1900">###</font></i>
+<i><font color="#9A1900">### the actual test(s).</font></i>
+<i><font color="#9A1900">###</font></i>
+
+<i><font color="#9A1900"># function-level tests</font></i>
+
+<b><font color="#0000FF">def</font></b> <b><font color="#000000">test_me</font></b><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">:</font>
+    <b><font color="#0000FF">assert</font></b> initialized
+
+<b><font color="#0000FF">def</font></b> <b><font color="#000000">test_me_2</font></b><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">:</font>
+    <b><font color="#0000FF">assert</font></b> initialized
+
+<i><font color="#9A1900"># class test; need not inherit from unittest.TestCase.</font></i>
+
+<b><font color="#0000FF">class</font></b> TestClass<font color="#990000">:</font>
+    <b><font color="#0000FF">def</font></b> <b><font color="#000000">__init__</font></b><font color="#990000">(</font>self<font color="#990000">)</font><font color="#990000">:</font>
+        self<font color="#990000">.</font>cls_initialized <font color="#990000">=</font> False
+
+    <i><font color="#9A1900">### fixtures again -- run before &amp; after each test in this class.</font></i>
+    
+    <b><font color="#0000FF">def</font></b> <b><font color="#000000">setUp</font></b><font color="#990000">(</font>self<font color="#990000">)</font><font color="#990000">:</font>
+        <b><font color="#0000FF">assert</font></b> <b><font color="#0000FF">not</font></b> self<font color="#990000">.</font>cls_initialized
+        self<font color="#990000">.</font>cls_initialized <font color="#990000">=</font> True
+
+        err<font color="#990000">.</font><b><font color="#000000">write</font></b><font color="#990000">(</font><font color="#FF0000">'CLASS SETUP\n'</font><font color="#990000">)</font>
+
+    <b><font color="#0000FF">def</font></b> <b><font color="#000000">tearDown</font></b><font color="#990000">(</font>self<font color="#990000">)</font><font color="#990000">:</font>
+        <b><font color="#0000FF">assert</font></b> self<font color="#990000">.</font>cls_initialized
+        self<font color="#990000">.</font>cls_initialized <font color="#990000">=</font> False
+
+        err<font color="#990000">.</font><b><font color="#000000">write</font></b><font color="#990000">(</font><font color="#FF0000">'CLASS TEARDOWN\n'</font><font color="#990000">)</font>
+
+    <i><font color="#9A1900">### actual tests.</font></i>
+
+    <b><font color="#0000FF">def</font></b> <b><font color="#000000">test_1</font></b><font color="#990000">(</font>self<font color="#990000">)</font><font color="#990000">:</font>
+        err<font color="#990000">.</font><b><font color="#000000">write</font></b><font color="#990000">(</font><font color="#FF0000">'CLASS TEST_1\n'</font><font color="#990000">)</font>
+
+    <b><font color="#0000FF">def</font></b> <b><font color="#000000">test_2</font></b><font color="#990000">(</font>self<font color="#990000">)</font><font color="#990000">:</font>
+        err<font color="#990000">.</font><b><font color="#000000">write</font></b><font color="#990000">(</font><font color="#FF0000">'CLASS TEST_2\n'</font><font color="#990000">)</font>
+
+<i><font color="#9A1900">###</font></i>
+<i><font color="#9A1900">### you can also have function tests with setup/teardown functions attached:</font></i>
+<i><font color="#9A1900">###</font></i>
+
+<b><font color="#0000FF">def</font></b> <b><font color="#000000">_a</font></b><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">:</font>
+    err<font color="#990000">.</font><b><font color="#000000">write</font></b><font color="#990000">(</font><font color="#FF0000">'FN COMPLEX SETUP\n'</font><font color="#990000">)</font>
+
+<b><font color="#0000FF">def</font></b> <b><font color="#000000">_b</font></b><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">:</font>
+    err<font color="#990000">.</font><b><font color="#000000">write</font></b><font color="#990000">(</font><font color="#FF0000">'FN COMPLEX TEARDOWN\n'</font><font color="#990000">)</font>
+
+<b><font color="#0000FF">def</font></b> <b><font color="#000000">test_complex</font></b><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">:</font>
+    err<font color="#990000">.</font><b><font color="#000000">write</font></b><font color="#990000">(</font><font color="#FF0000">'FN COMPLEX TEST\n'</font><font color="#990000">)</font>
+
+test_complex<font color="#990000">.</font>setup <font color="#990000">=</font> _a
+test_complex<font color="#990000">.</font>teardown <font color="#990000">=</font> _b
+
+<i><font color="#9A1900">###</font></i>
+<i><font color="#9A1900">### test function that returns a generator</font></i>
+<i><font color="#9A1900">###</font></i>
+
+<i><font color="#9A1900"># validation function</font></i>
+<b><font color="#0000FF">def</font></b> <b><font color="#000000">check_sum</font></b><font color="#990000">(</font>a<font color="#990000">,</font> b<font color="#990000">,</font> c<font color="#990000">)</font><font color="#990000">:</font>
+    <b><font color="#0000FF">assert</font></b> a<font color="#990000">+</font>b <font color="#990000">=</font><font color="#990000">=</font> c
+
+<b><font color="#0000FF">def</font></b> <b><font color="#000000">test_check_sum</font></b><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">:</font>
+    <b><font color="#0000FF">for</font></b> i <b><font color="#0000FF">in</font></b> <b><font color="#000000">range</font></b><font color="#990000">(</font><font color="#993399">0</font><font color="#990000">,</font> <font color="#993399">5</font><font color="#990000">)</font><font color="#990000">:</font>
+        yield check_sum<font color="#990000">,</font> i<font color="#990000">,</font> i <font color="#990000">+</font> <font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">2</font><font color="#990000">*</font>i <font color="#990000">+</font> <font color="#993399">1</font>
+</tt>
+</pre>
