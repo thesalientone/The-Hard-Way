@@ -53,8 +53,8 @@ class Engine(object):
                     if next_scene_name not in ['open', 'start', 'menu']:
                         logic2 = 1
                 if logic1 * logic2 == 1:
-                    #print "P scene %s N  scene %s" % (prev_scene, next_scene_name)
-                    #print self.scene_map.towns
+                    #print("P scene %s N  scene %s" % (prev_scene, next_scene_name))
+                    #print(self.scene_map.towns)
                     if randint(0, 100) <= 35 and leaving_menu != 1:
                         outcome = Battle().enter(prev_scene)
 
@@ -75,7 +75,7 @@ class Engine(object):
 class Scene(object):
 
     def enter(self):
-        print "scene not yet finished"
+        print("scene not yet finished")
 
     def game_over_scene(self, hploss):
         hp_sum = 0
@@ -124,7 +124,7 @@ The following classes are available:
     def get_job(self):
 
 
-        job = raw_input("Enter the job of your hero:\n> ")
+        job = input("Enter the job of your hero:\n> ")
 
         return  job
 
@@ -150,7 +150,7 @@ The following classes are available:
         }
 
         while info not in jobs.keys():
-            print "You have not selected a proper job."
+            print("You have not selected a proper job.")
             formatborders(self.intro_text)
             info = self.get_job()
         return jobs[info]
@@ -173,51 +173,51 @@ The following classes are available:
 
         formatborders("EQUIPMENT: Equipment Stats are in the format HP/MP/ATT/MATT/PARM/MARM")
         party_members = self.get_party_members()
-        print "NAME".ljust(7),
+        print("NAME".ljust(7),)
         for hero in party_members:
-            print hero.name.ljust(15),
-        print "\n", "JOB".ljust(7),
+            print(hero.name.ljust(15),)
+        print("\n", "JOB".ljust(7),)
         for hero in party_members:
-            print hero.job.ljust(15),
-        print "\n", "WEAPON".ljust(7),
+            print(hero.job.ljust(15),)
+        print("\n", "WEAPON".ljust(7),)
         for hero in party_members:
-            print hero.sword.name.ljust(15),
-        print "\n"
-        print "\n", "".ljust(7),
+            print(hero.sword.name.ljust(15),)
+        print("\n")
+        print("\n", "".ljust(7),)
         for hero in party_members:
             hero.sword.print_stats(),
-        print "\n"
-        print "\n", "HELM".ljust(7),
+        print("\n")
+        print("\n", "HELM".ljust(7),)
         for hero in party_members:
-            print hero.helm.name.ljust(15),
-        print "\n"
-        print "\n", "".ljust(7),
+            print(hero.helm.name.ljust(15),)
+        print("\n")
+        print("\n", "".ljust(7),)
         for hero in party_members:
             hero.helm.print_stats(),
-        print "\n"
-        print "\n", "CHEST".ljust(7),
+        print("\n")
+        print("\n", "CHEST".ljust(7),)
         for hero in party_members:
-            print hero.chest.name.ljust(15),
-        print "\n"
-        print "\n", "".ljust(7),
+            print(hero.chest.name.ljust(15),)
+        print("\n")
+        print("\n", "".ljust(7),)
         for hero in party_members:
             hero.chest.print_stats(),
-        print "\n"
-        print "\n", "ACC".ljust(7),
+        print("\n")
+        print("\n", "ACC".ljust(7),)
         for hero in party_members:
             if hero.acc:
-                print hero.acc.ljust(15),
+                print(hero.acc.ljust(15),)
             else:
-                print 'NONE'.ljust(15),
-        print "\n"
+                print('NONE'.ljust(15),)
+        print("\n")
 
     def display_heros(self):
-        print "\n"
+        print("\n")
         members = self.get_party_members()
         for i in range(4):
             class_name = members[i].__class__.__name__
-            print i+1, ". %s" % members[i].name.ljust(10) , "(%s)" % class_name
-        print "\n"
+            print(i+1, ". %s" % members[i].name.ljust(10) , "(%s)" % class_name)
+        print("\n")
 
     def return_avg_levels(self):
         lvlavg = self.hero1.lev + self.hero2.lev + self.hero3.lev + self.hero4.lev
@@ -232,7 +232,7 @@ The following classes are available:
         for hero in heros:
             hero_hp.append("%d/%d" % (hero.hp, hero.maxhp))
 
-        print display_format.format(*hero_hp)
+        print(display_format.format(*hero_hp))
 
 
 
@@ -241,7 +241,7 @@ The following classes are available:
         hero_names = ['Name:']
         for hero in self.get_party_members():
             hero_names.append(hero.name)
-        print display_format.format(*hero_names)
+        print(display_format.format(*hero_names))
 
     def display_mp(self):
 
@@ -252,7 +252,7 @@ The following classes are available:
         for hero in heros:
             hero_mp.append("%d/%d" % (hero.mp, hero.maxmp))
 
-        print display_format.format(*hero_mp)
+        print(display_format.format(*hero_mp))
 
     def display_stat(self, stat):
 
@@ -266,23 +266,23 @@ The following classes are available:
             for hero in self.get_party_members():
                 evalcode = 'hero.' + stat
                 text.append(eval(evalcode))
-            print display_format.format(*text)
+            print(display_format.format(*text))
             if stat == 'name':
-                print "-" * 50
+                print("-" * 50)
 
     def display_panel(self):
-        print "-" * 80
+        print("-" * 80)
         self.display_hero_names()
         self.display_hp()
         self.display_mp()
-        print "-" * 80
+        print("-" * 80)
 
     def display_panel_numbered(self):
-        print "-" * 80
+        print("-" * 80)
         self.display_hero_names_numbered()
         self.display_hp()
         self.display_mp()
-        print "-" * 80
+        print("-" * 80)
 
     def display_full_panel(self):
         stat_names = ['name', 'job', 'lev', 'hp', 'mp', 'exp', 'mag', 'mdef',
@@ -296,7 +296,7 @@ The following classes are available:
         for i in range(4):
             name_text = "%d. %s" % ( i + 1 , heros[i].name)
             display_text.append(name_text)
-        print display_format.format(*display_text)
+        print(display_format.format(*display_text))
 
     def party_subract_hp(self, health):
         for hero in self.get_party_members():
@@ -326,14 +326,14 @@ class Equipment(object):
         stat_text = []
         for stat in self.return_stats():
             stat_text.append(str(stat))
-        print "/".join(stat_text).ljust(15),
+        print("/".join(stat_text).ljust(15),)
 
     def print_stats_inventory(self):
-        print "NAME".ljust(10), self.name
+        print("NAME".ljust(10), self.name)
         for stat in self.equip_stat_string_list:
 
             run_code = 'self.' + stat
-            print stat.upper().ljust(10), eval(run_code)
+            print(stat.upper().ljust(10), eval(run_code))
 
 
 
@@ -408,13 +408,14 @@ class Hero(object):
         self.chest = None
         self.acc = None
         self.spells = []
+        self.time = 100
 
 
     def initialize(self):
 
-        self.name = raw_input("Enter a hero name:\n> ")
+        self.name = input("Enter a hero name:\n> ")
         if len(self.name) > 11 or len(self.name) < 1:
-            print "Please Enter a hero name that is 10 characters or less."
+            print("Please Enter a hero name that is 10 characters or less.")
             self.initialize()
 
     def return_stats(self):
@@ -451,8 +452,8 @@ class Hero(object):
 
 
     def act(self, target_list):
-        print "%s's turn:" % self.name
-        action = raw_input(self.action_text)
+        print("%s's turn:" % self.name)
+        action = input(self.action_text)
         if action in ['1', 'attack', 'Attack', 'a', 'A']:
             return self.attack(target_list)
         elif action in ['2', 'magic', 'Magic', 'm', 'M']:
@@ -461,21 +462,21 @@ class Hero(object):
             InventoryMenu().enter('battle')
             return 0, 0
         elif not action:
-            print "Skipping Turn"
+            print("Skipping Turn")
             return 0, 0
         else:
-            print "Please enter an action. Press enter to skip the turn"
+            print("Please enter an action. Press enter to skip the turn")
             return self.act(target_list)
 
 
     def attack(self, target_list):
         self.printtargets(target_list)
-        target = raw_input(">")
+        target = input(">")
         if target.isdigit():
             target = int(target)
-            #print range(1, len(target_list[4:]) + 1)
+            #print(range(1, len(target_list[4:]) + 1))
             if target not in range(1, len(target_list[4:]) +1):
-                print "Target out of range."
+                print("Target out of range.")
                 return self.attack(target_list)
             monster = target_list[3 + target].__class__.__name__
             damage = self.generate_attack_dmg(target_list[3 + target])
@@ -483,16 +484,16 @@ class Hero(object):
 
             return damage, 3 + target
         else:
-            print "Please enter a number."
+            print("Please enter a number.")
             return self.attack(target_list)
     def printtargets(self, target_list):
         index = 1
-        print "Enter a target number:"
+        print("Enter a target number:")
         for target in range(4, len(target_list[4:]) + 4):
             monster = target_list[target]
-            print index, ". ", monster.__class__.__name__, " ",
+            print(index, ". ", monster.__class__.__name__, " ",)
             index += 1
-        print ""
+        print("")
 
     def generate_attack_dmg(self, monster):
         delta = self.sword.att + self.helm.att + self.chest.att
@@ -507,7 +508,7 @@ class Hero(object):
     def display_levelup_stat(self, stat_txt, old, new):
         display_format = "{:<10}" + "{:^+10}"
         display_text = [stat_txt.upper(), new - old]
-        print display_format.format(*display_text)
+        print(display_format.format(*display_text))
 
     def display_levelup_stats(self, old_stats, new_stats):
         stat_names = ['mag', 'mdef', 'stre', 'defe', 'speed', 'maxhp', 'maxmp']
@@ -515,8 +516,8 @@ class Hero(object):
             self.display_levelup_stat(stat_names[i], old_stats[i], new_stats[i])
 
     def display_spells(self):
-        print "%s Spells: " % (self.name)
-        print '-' * 80
+        print("%s Spells: " % (self.name))
+        print('-' * 80)
         spell_count = len(self.spells)
         y = enumerate(self.spells, 1)
         spells_numbered = list(y)
@@ -532,11 +533,11 @@ class Hero(object):
         i = 0
         display_text = "{:>10}" * 4
         while i <= spell_count:
-            #print "Spell %r is number %d" % (spell_text[i], i)
-            print display_text.format(*spell_text[i:i+4])
+            #print("Spell %r is number %d" % (spell_text[i], i))
+            print(display_text.format(*spell_text[i:i+4]))
 
             i += 4
-        print '-' * 80
+        print('-' * 80)
 
     def generate_magic_dmg(self, spell, monster):
 
@@ -563,7 +564,7 @@ class Hero(object):
                 self.mp -= spell.mp
                 if target.hp > target.maxhp:
                     target.hp = target.maxhp
-                print "Restored %d hp to %s" % (taget.hp - beforehp, target.name)
+                print("Restored %d hp to %s" % (target.hp - beforehp, target.name))
     def magic(self, target_list):
         spell = self.get_spell()
         if spell:
@@ -571,21 +572,21 @@ class Hero(object):
             hero_list = PARTY.get_party_members()
             if spell.foe_target == 'friend':
                 PARTY.display_panel_numbered()
-                target_choice = raw_input("\n>")
+                target_choice = input("\n>")
                 if (int(target_choice) <= 4 ) and (int(target_choice) >= 1):
-                    hero.use_spell(spell, hero_list[int(target_choice) - 1])
+                    self.use_spell(spell, hero_list[int(target_choice) - 1])
                     return 0, 0
                 else:
-                    print "Please select a hero numbered 1 through 4"
+                    print("Please select a hero numbered 1 through 4")
                     return self.act(target_list)
             else:
                 self.printtargets(target_list)
-                target = raw_input(">")
+                target = input(">")
                 if target.isdigit():
                     target = int(target)
-                    #print range(1, len(target_list[4:]) + 1)
+                    #print(range(1, len(target_list[4:]) + 1))
                     if target not in range(1, len(target_list[4:]) +1):
-                        print "Target out of range."
+                        print("Target out of range.")
                         return self.attack(target_list)
                     monster = target_list[3 + target].__class__.__name__
 
@@ -595,27 +596,27 @@ class Hero(object):
 
                         return damage, 3 + target
                     else:
-                        print "Not enough mp. "
+                        print("Not enough mp. ")
                         return 0, 0
                 else:
-                    print "Please enter a number."
+                    print("Please enter a number.")
                     return self.act(target_list)
         else:
             return self.act(target_list)
     def get_spell(self):
         if len(self.spells) == 0 :
-            print "Hero has no spells. "
+            print("Hero has no spells. ")
             return None
         else:
             self.display_spells()
-            print "Select spell number"
-            spell_choice = raw_input("\n>")
+            print("Select spell number")
+            spell_choice = input("\n>")
             if spell_choice.isdigit():
                 spell_choice = int(spell_choice)
                 return self.spells[spell_choice - 1]
 
             else:
-                print "Enter a proper spell number."
+                print("Enter a proper spell number.")
                 return get_spell()
 
 class Warrior(Hero):
@@ -766,12 +767,12 @@ class Theif(Hero):
 class Action(object):
     def attack(self, target_list):
         self.printtargets(target_list)
-        target = raw_input(">")
+        target = input(">")
         if target.isdigit():
             target = int(target)
-            #print range(1, len(target_list[4:]) + 1)
+            #print(range(1, len(target_list[4:]) + 1))
             if target not in range(1, len(target_list[4:]) +1):
-                print "Target out of range."
+                print("Target out of range.")
                 return self.attack(target_list)
             monster = target_list[3 + target].__class__.__name__
             damage = self.generate_attack_dmg(target_list[3 + target])
@@ -779,16 +780,16 @@ class Action(object):
 
             return damage, 3 + target
         else:
-            print "Please enter a number."
+            print("Please enter a number.")
             return self.attack(target_list)
     def printtargets(self, target_list):
         index = 1
-        print "Enter a target number:"
+        print("Enter a target number:")
         for target in range(4, len(target_list[4:]) + 4):
             monster = target_list[target]
-            print index, ". ", monster.__class__.__name__, " ",
+            print(index, ". ", monster.__class__.__name__, " ",)
             index += 1
-        print ""
+        print("")
 
     def generate_attack_dmg(self, monster):
         delta = self.sword.att + self.helm.att + self.chest.att
@@ -805,7 +806,7 @@ class Action(object):
     def display_levelup_stat(self, stat_txt, old, new):
         display_format = "{:<10}" + "{:^+10}"
         display_text = [stat_txt.upper(), new - old]
-        print display_format.format(*display_text)
+        print(display_format.format(*display_text))
 
     def display_levelup_stats(self, old_stats, new_stats):
         stat_names = ['mag', 'mdef', 'stre', 'defe', 'speed', 'maxhp', 'maxmp']
@@ -817,7 +818,7 @@ class Spell(Action):
     def __init__(self, **kwargs):
         allowed_keys = ['name', 'foe_target', 'multi_target', 'damage_type',
                         'potency', 'desc', 'mp']
-        self.__dict__.update((k,v) for k, v in kwargs.iteritems() if k in allowed_keys)
+        self.__dict__.update((k,v) for k, v in kwargs.items() if k in allowed_keys)
 
 
 
@@ -870,7 +871,7 @@ class Monster(object):
                       'speed' : self.speed}
 
     def act(self, target_list):
-        print "%s is " % self.__class__.__name__,
+        print("%s is " % self.__class__.__name__,)
         action = randint(1, 1)
         if action == 1:
             return self.attack(target_list)
@@ -882,13 +883,13 @@ class Monster(object):
 
         hero, target = self.find_target(target_list)
         damage = self.generate_attack_dmg(target)
-        print "attacking %s for %d" % (target.name , damage)
-        print "-" * 80
+        print("attacking %s for %d" % (target.name , damage))
+        print("-" * 80)
 
         return damage, hero
     def printtargets(self, target_list):
         for target in target_list[:3]:
-            print target.__class__.__name__
+            print(target.__class__.__name__)
 
     def generate_attack_dmg(self, hero):
         delta = hero.helm.parm + hero.chest.parm + hero.sword.parm
@@ -927,7 +928,7 @@ class Slime(Monster):
 
         self.adjust_stats()
     def adjust_stats(self):
-        #print "Stats"
+        #print("Stats")
         self.stre = self.lev + 20
         self.hp = self.lev * 50
         self.maxhp = self.hp
@@ -975,15 +976,15 @@ class Inventory(object):
 
     def select_item(self, item_list):
 
-        item_number = raw_input("Enter the number or of the item you wish to use:")
+        item_number = input("Enter the number or of the item you wish to use:")
 
         try:
             item_to_use = self.item_dictionary[item_list[int(item_number) -1][1]]
             class_name = self.item_dictionary[item_list[int(item_number) -1][1]].__class__.__name__
             if class_name == "Item":
                 if item_number:
-                    print item_list[int(item_number) -1][1], " Description: \n"
-                    print item_to_use.desc
+                    print(item_list[int(item_number) -1][1], " Description: \n")
+                    print(item_to_use.desc)
 
                     return item_number, item_to_use
 
@@ -993,12 +994,12 @@ class Inventory(object):
                 item_to_use.print_stats_inventory()
                 return None
         except:
-            print "Improper item number entered."
+            print("Improper item number entered.")
             formatborders("MENU")
             return None
 
     def select_equipment(self, item_list):
-        item_number = raw_input("Enter the number of the item you wish to equip:")
+        item_number = input("Enter the number of the item you wish to equip:")
 
         #try goes here
 
@@ -1006,7 +1007,7 @@ class Inventory(object):
             item_to_use = self.item_dictionary[item_list[int(item_number) -1][1]]
             wep_type = item_to_use.armortype
             PARTY.display_heros()
-            hero_num = raw_input("Enter the number of the hero to equip the %s to: " % item_to_use.name)
+            hero_num = input("Enter the number of the hero to equip the %s to: " % item_to_use.name)
             members = PARTY.get_party_members()
             if hero_num:
                 hero = members[int(hero_num) - 1]
@@ -1015,66 +1016,66 @@ class Inventory(object):
                     if wep_type == hero_wep_type:
                         formatborders(hero.name)
                         self.compare_equipment(hero.helm, item_to_use)
-                        confirm_change = raw_input("Do you wish to change the equipment (Y/N): \n>")
+                        confirm_change = input("Do you wish to change the equipment (Y/N): \n>")
 
                         if confirm_change in ['y', 'Y', 'yes', 'Yes', item_to_use.name]:
                             PARTY.inv.add_item(hero.helm, 1)
                             hero.helm = item_to_use
                             PARTY.inv.sub_item(item_to_use, 1)
-                            print "%s successfully equipped. " % item_to_use.name
+                            print("%s successfully equipped. " % item_to_use.name)
                     else:
-                        print "This equipment is not for that class of hero."
+                        print("This equipment is not for that class of hero.")
                 elif wep_type in ['wchest', 'mchest']:
                     hero_wep_type = hero.chest.armortype
                     if wep_type == hero_wep_type:
                         formatborders(hero.name)
                         self.compare_equipment(hero.chest, item_to_use)
-                        confirm_change = raw_input("Do you wish to change the equipment (Y/N): \n>")
+                        confirm_change = input("Do you wish to change the equipment (Y/N): \n>")
 
                         if confirm_change in ['y', 'Y', 'yes', 'Yes', item_to_use.name]:
                             PARTY.inv.add_item(hero.chest, 1)
                             hero.chest = item_to_use
                             PARTY.inv.sub_item(item_to_use, 1)
-                            print "%s successfully equipped. " % item_to_use.name
+                            print("%s successfully equipped. " % item_to_use.name)
                     else:
-                        print "This equipment is not for that class of hero."
+                        print("This equipment is not for that class of hero.")
                 elif wep_type in ['wwep', 'mwep']:
                     hero_wep_type = hero.sword.armortype
                     if wep_type == hero_wep_type:
                         formatborders(hero.name)
                         self.compare_equipment(hero.sword, item_to_use)
-                        confirm_change = raw_input("Do you wish to change the equipment (Y/N): \n>")
+                        confirm_change = input("Do you wish to change the equipment (Y/N): \n>")
 
                         if confirm_change in ['y', 'Y', 'yes', 'Yes', item_to_use.name]:
                             PARTY.inv.add_item(hero.sword, 1)
                             hero.sword = item_to_use
                             PARTY.inv.sub_item(item_to_use, 1)
-                            print "%s successfully equipped. " % item_to_use.name
+                            print("%s successfully equipped. " % item_to_use.name)
                     else:
-                        print "This equipment is not for that class of hero."
+                        print("This equipment is not for that class of hero.")
 
                 else:
-                    print "Something went wrong. Don't save. You might ruin your file. "
+                    print("Something went wrong. Don't save. You might ruin your file. ")
 
             else:
-                print "No hero selected."
+                print("No hero selected.")
                 return None
         else:
-            print "No item selected. Returning to menu"
+            print("No item selected. Returning to menu")
             return None
 
 
 
     def compare_equipment(self, equip1, equip2):
 
-        print "NAME".ljust(10), equip1.name.ljust(15), equip2.name.ljust(15), "CHANGE"
+        print("NAME".ljust(10), equip1.name.ljust(15), equip2.name.ljust(15), "CHANGE")
         for stat in Equipment.equip_stat_string_list:
             old = eval('equip1.' + stat)
             new = eval('equip2.' + stat)
             diff = new - old
             if diff > 0:
                 diff = '+' + str(diff)
-            print stat.upper().ljust(10), str(old).ljust(15), str(new).ljust(15), diff
+            print(stat.upper().ljust(10), str(old).ljust(15), str(new).ljust(15), diff)
 
 
 
@@ -1087,7 +1088,7 @@ class Inventory(object):
         PARTY.display_hp()
         PARTY.display_mp()
 
-        hero_number = raw_input("Enter the number of the hero to use the %s on: " % item.name)
+        hero_number = input("Enter the number of the hero to use the %s on: " % item.name)
         if hero_number:
             try :
                 hero = members[int(hero_number) - 1]
@@ -1095,7 +1096,7 @@ class Inventory(object):
                 if item.itype == 'p':
                     hero_temp_stat = hero.hp
                     if hero.hp == 0 and item.name != 'Phoenix Down':
-                        print "Error: Must use Phoenix Down or rest at an Inn"
+                        print("Error: Must use Phoenix Down or rest at an Inn")
                         hero_temp_stat = 0
                     if hero.hp == 0 and item.name == 'Phoenix Down':
                         self.use_potion(item, hero)
@@ -1106,7 +1107,7 @@ class Inventory(object):
                         self.sub_item(item, 1)
                         hero_temp_stat = hero.hp - hero_temp_stat
 
-                    print "Restored %d health to %s. " % ( hero_temp_stat , hero.name)
+                    print("Restored %d health to %s. " % ( hero_temp_stat , hero.name))
                 #If using a potion to restore mp
                 if item.itype == 'm':
                     hero_temp_stat = hero.mp
@@ -1114,12 +1115,12 @@ class Inventory(object):
                     self.sub_item(item, 1)
                     hero_temp_stat = hero.mp - hero_temp_stat
 
-                    print "Restored %d mana to %s. " % ( hero_temp_stat, hero.name)
+                    print("Restored %d mana to %s. " % ( hero_temp_stat, hero.name))
             except:
-                print "Improper hero number entered. Returning to menu."
+                print("Improper hero number entered. Returning to menu.")
                 formatborders("MENU")
         else:
-            print "No hero entered. Returning to menu. "
+            print("No hero entered. Returning to menu. ")
             formatborders("MENU")
 
     def use_potion(self, item, hero):
@@ -1154,7 +1155,7 @@ class Inventory(object):
         numbered_list = list(enum)
         if number_of_items <= 20:
             for item in numbered_list:
-                print item[0] + 1, ". ", item[1] , ": x", pack[item[1]]
+                print(item[0] + 1, ". ", item[1] , ": x", pack[item[1]])
 
         else:
             for row in range(0, max_number):
@@ -1163,11 +1164,11 @@ class Inventory(object):
                     point = row + max_number * column
                     if point < number_of_items:
                         try:
-                            print point + 1, numbered_list[point][0] + 1, ". ", numbered_list[point][1], ": x", pack[numbered_list[point][1]],
+                            print(point + 1, numbered_list[point][0] + 1, ". ", numbered_list[point][1], ": x", pack[numbered_list[point][1]],)
                         except:
                             pass
 
-                print ""
+                print("")
         return numbered_list
 
 
@@ -1199,25 +1200,25 @@ class Opening(Scene):
         formatborders(self.entrytext)
 
 
-        prompt = raw_input("What do you want to do: \n>")
+        prompt = input("What do you want to do: \n>")
         if prompt in ['1', 'menu', 'Menu']:
             formatborders("MENU")
 
             return 'menu'
         elif prompt in ['2']:
             PARTY.hero1.hp -= 20
-            print 'DIE HERO!!! Now his health is %d' % PARTY.hero1.hp
+            print('DIE HERO!!! Now his health is %d' % PARTY.hero1.hp)
             return 'open'
         elif prompt in ['3']:
             PARTY.inv.add_item(ironhelm, 1)
             PARTY.inv.add_item(ironchest, 1)
-            print "Added Iron Helm"
+            print("Added Iron Helm")
             return 'open'
         elif prompt in ['quit', 'q', 'exit', 'Exit']:
-            print "Game Exiting. Thank you for playing."
+            print("Game Exiting. Thank you for playing.")
             return 'finished'
         elif prompt in ['4', 'field', 'Field']:
-            print "Going to field."
+            print("Going to field.")
             return 'field_0_1'
 
         else:
@@ -1242,19 +1243,20 @@ by Stefan Jenkins
 
         """
         formatborders(start_text)
-        start_option = raw_input("Type a Number or Command:\n>")
+        start_option = input("Type a Number or Command:\n>")
 
         if start_option in ['1', 'new', 'New', 'n', 'N']:
-            print "Starting New Game........"
+            print("Starting New Game........")
             PARTY = Party()
             return 'open'
 
         elif start_option in ['2', 'load', 'Load', 'l', 'L']:
-            print "Loading Save File........"
+
+            print("Loading Save File........")
             load_data = self.check_memory_card()
             load_data.display_saves()
 
-            load_slot = raw_input("Which file would you like to load: \n>")
+            load_slot = input("Which file would you like to load: \n>")
             try:
                 load_slot = int(load_slot)
             except:
@@ -1266,21 +1268,21 @@ by Stefan Jenkins
                     PARTY = load_data.save1.party
                     return load_data.save1.scene_name
                 else:
-                    print "No save file found. Returning to start."
+                    print("No save file found. Returning to start.")
                     return 'start'
             if load_slot == 2:
                 if load_data.save2:
                     PARTY = load_data.save2.party
                     return load_data.save2.scene_name
                 else:
-                    print "No save file found. Returning to start."
+                    print("No save file found. Returning to start.")
                     return 'start'
             if load_slot == 3:
                 if load_data.save3:
                     PARTY = load_data.save3.party
                     return load_data.save3.scene_name
                 else:
-                    print "No save file found. Returning to start."
+                    print("No save file found. Returning to start.")
                     return 'start'
             if load_slot == 0:
                 formatborders("Wrong slot name. Please enter 1,2, or 3. Returning to Start.")
@@ -1294,15 +1296,15 @@ by Stefan Jenkins
 
 
         else:
-            print "Please select a proper option."
+            print("Please select a proper option.")
             return 'start'
 
 
     def check_memory_card(self):
         try :
-            load_file = open('save.txt', 'r')
+            load_file = open('save.txt', 'rb')
         except:
-            load_file = open('save.txt', 'w')
+            load_file = open('save.txt', 'wb')
         try:
             load_data = pickle.load(load_file)
 
@@ -1317,12 +1319,9 @@ by Stefan Jenkins
 class Finished(Scene):
 
     def enter(self):
-        print "You finished"
+        print("You finished")
 
 
-class Monster(object):
-
-    pass
 
 class Menu(Scene):
 
@@ -1342,16 +1341,16 @@ class Menu(Scene):
         9. Help
         10. Debug Menu
         """
-        print self.menu_text
+        print(self.menu_text)
         choice = None
 
         while choice not in ["exit", "return", "7", "q", "quit"]:
 
-            choice = raw_input("What would  you like to do: \n>")
+            choice = input("What would  you like to do: \n>")
 
             if choice in ['stats', 'Stats', '1']:
                 self.stats(PARTY)
-                print self.menu_text
+                print(self.menu_text)
             if choice in ['inventory', 'Inventory', 'inv', 'Inv', '2', 'i', 'I']:
                 return 'inv'
             if choice in ['magic', 'Magic', 'm', 'M', '3']:
@@ -1378,22 +1377,22 @@ class Menu(Scene):
 
         formatborders("STATS")
         PARTY.display_full_panel()
-        raw_input("Press Enter")
+        input("Press Enter")
 
 
 
 class SubMenu(Scene):
 
     def enter(self, scene_name):
-        print "You have accessed a submenu. It hasn't been initialized yet."
+        print("You have accessed a submenu. It hasn't been initialized yet.")
         return 'menu'
 
 class InventoryMenu(SubMenu):
 
     def enter(self, scene_name):
         formatborders("INVENTORY")
-        print "GIL : %d"
-        print "-" * 80
+        print("GIL : %d")
+        print("-" * 80)
         item_list = PARTY.inv.display_items('item')
         item_num_type = PARTY.inv.select_item(item_list)
         if item_num_type:
@@ -1408,35 +1407,35 @@ class MagicMenu(SubMenu):
         hero_list = []
         for hero in PARTY.get_party_members():
             hero_list.append(hero)
-            print str(hero_number) + ".",
+            print(str(hero_number) + ".",)
             hero.display_spells()
             hero_number +=1
-        print "Enter Hero Number of spell to use: (Press enter to return to menu)"
-        hero_choice = raw_input("\n>")
+        print("Enter Hero Number of spell to use: (Press enter to return to menu)")
+        hero_choice = input("\n>")
         if hero_choice in ['1', '2', '3', '4']:
             if len(hero_list[int(hero_choice) - 1].spells) == 0:
-                print "Hero has no spells yet. Returning to menu"
+                print("Hero has no spells yet. Returning to menu")
             else:
-                print "Enter spell number to use:"
+                print("Enter spell number to use:")
                 hero = hero_list[int(hero_choice) - 1]
-                spell_choice = raw_input("\n>")
+                spell_choice = input("\n>")
                 if spell_choice.isdigit():
                     spell_choice = int(spell_choice)
                     if (spell_choice <= len(hero.spells)) and (spell_choice >= 1):
                         spell = hero.spells[spell_choice - 1]
                         if spell.foe_target == 'foe':
-                            print spell.desc
+                            print(spell.desc)
                         else:
-                            print spell.desc
-                            print "Select a hero to use the spell on. "
+                            print(spell.desc)
+                            print("Select a hero to use the spell on. ")
                             PARTY.display_panel_numbered()
-                            target_choice = raw_input("\n>")
+                            target_choice = input("\n>")
                             if (int(target_choice) <= 4 ) and (int(target_choice) >= 1):
                                 hero.use_spell(spell, hero_list[int(target_choice) - 1])
                             else:
-                                print "Please select a hero numbered 1 through 4"
+                                print("Please select a hero numbered 1 through 4")
                 else:
-                    print "Enter a proper spell number. returning to menu."
+                    print("Enter a proper spell number. returning to menu.")
 
         return 'menu'
 
@@ -1458,7 +1457,7 @@ class SaveMenu(SubMenu):
 
         load_data = self.check_memory_card()
         load_data.display_saves()
-        save_slot = raw_input("Which slot do you want to use: \n>")
+        save_slot = input("Which slot do you want to use: \n>")
 
         try:
             save_slot = int(save_slot)
@@ -1466,7 +1465,7 @@ class SaveMenu(SubMenu):
             save_slot = 0
 
         if save_slot in [1,2,3]:
-            print "Saving game......."
+            print("Saving game.......")
             if save_slot == 1:
                 load_data.save1 = Save()
                 load_data.save1.save_game(scene_name)
@@ -1478,12 +1477,12 @@ class SaveMenu(SubMenu):
                 load_data.save3 = Save()
                 load_data.save3.save_game(scene_name)
 
-            print "Saving Complete. Writing to file......."
-            save_file = open('save.txt', "w+")
+            print("Saving Complete. Writing to file.......")
+            save_file = open('save.txt', "wb")
             pickle.dump(load_data, save_file)
             save_file.close()
         else:
-            print "Improper save entered. Returning to menu. Game NOT saved."
+            print("Improper save entered. Returning to menu. Game NOT saved.")
 
         return 'menu'
 
@@ -1507,11 +1506,12 @@ class LoadMenu(SubMenu):
 
     def enter(self, scenename):
         global PARTY
-        print "Loading Save File........"
+        print("Loading Save File........")
+        
         load_data = self.check_memory_card()
         load_data.display_saves()
 
-        load_slot = raw_input("Which file would you like to load: \n>")
+        load_slot = input("Which file would you like to load: \n>")
         try:
             load_slot = int(load_slot)
         except:
@@ -1523,31 +1523,33 @@ class LoadMenu(SubMenu):
                 PARTY = load_data.save1.party
                 return load_data.save1.scene_name
             else:
-                print "No save file found. Returning to Menu."
+                print("No save file found. Returning to Menu.")
                 return 'menu'
         if load_slot == 2:
             if load_data.save2:
                 PARTY = load_data.save2.party
                 return load_data.save2.scene_name
             else:
-                print "No save file found. Returning to Menu."
+                print("No save file found. Returning to Menu.")
                 return 'menu'
         if load_slot == 3:
             if load_data.save3:
                 PARTY = load_data.save3.party
                 return load_data.save3.scene_name
             else:
-                print "No save file found. Returning to Menu."
+                print("No save file found. Returning to Menu.")
                 return 'menu'
         if load_slot == 0:
             formatborders("Wrong slot name. Please enter 1,2, or 3. Returning to Menu.")
             return 'menu'
 
     def check_memory_card(self):
+        print("Checking memory card")
         try :
-            load_file = open('save.txt', 'r')
+            load_file = open('save.txt', 'rb')
+            # print(load_file)
         except:
-            load_file = open('save.txt', 'w')
+            load_file = open('save.txt', 'wb')
         try:
             load_data = pickle.load(load_file)
 
@@ -1572,8 +1574,8 @@ class Field_0_1(Scene):
 
     def enter(self):
 
-        print self.text
-        location = raw_input("Enter a number: \n>")
+        print(self.text)
+        location = input("Enter a number: \n>")
 
         if location in ['1', 'menu', 'Menu', 'm', 'M']:
             return 'menu'
@@ -1598,8 +1600,8 @@ class Field_1_1(Scene):
 
     def enter(self):
 
-        print self.text
-        location = raw_input("Enter a number: \n>")
+        print(self.text)
+        location = input("Enter a number: \n>")
 
         if location in ['1', 'menu', 'Menu', 'm', 'M']:
             return 'menu'
@@ -1633,10 +1635,10 @@ visible from the main street.
         for hero in PARTY.get_party_members():
             level_sum += hero.lev
         if level_sum < 5:
-            print self.text % ""
+            print(self.text % "")
         else:
-            print self.text % "6. Weapon Shop"
-        location = raw_input("Enter a number: \n>")
+            print(self.text % "6. Weapon Shop")
+        location = input("Enter a number: \n>")
 
         if location in ['1', 'menu', 'Menu', 'm', 'M']:
             return 'menu'
@@ -1647,22 +1649,22 @@ visible from the main street.
         if location in ['4', 'inn', 'Inn']:
             return 'inn1'
         if location in ['5', 'poke', 'Villager']:
-            print "-" * 80
-            print "OUCH! What kind of pervert goes around poking a poor old man?"
-            print "You should be ashamed of yourselves."
-            print "If you had asked me nicely I would have told you that the"
-            print "weapons shop only sells to parties that are level 2 and higher."
-            print "\nBut because you're rude all I'm going to do is fart in your general direction"
-            print "\n *BLURTTTT*"
-            print "The old man is propelled forward into a wall and is knocked out."
-            print "Your eyes begin burning from the smell and everone loses 1 HP."
-            print "-" * 80
+            print("-" * 80)
+            print("OUCH! What kind of pervert goes around poking a poor old man?")
+            print("You should be ashamed of yourselves.")
+            print("If you had asked me nicely I would have told you that the")
+            print("weapons shop only sells to parties that are level 2 and higher.")
+            print("\nBut because you're rude all I'm going to do is fart in your general direction")
+            print("\n *BLURTTTT*")
+            print("The old man is propelled forward into a wall and is knocked out.")
+            print("Your eyes begin burning from the smell and everone loses 1 HP.")
+            print("-" * 80)
 
             if self.game_over_scene(1) == 0:
                 formatborders("GAME OVER: DEATH BY OLD MAN FART")
                 return 'gameover'
             if PARTY.gil < 50:
-                print "You find 5 gil on the ground. It must have fallen from the old man's pocket."
+                print("You find 5 gil on the ground. It must have fallen from the old man's pocket.")
                 PARTY.gil += 5
             return 'town1'
         if location in ['6', 'weapon', 'Weapon', 'w', 'W']:
@@ -1689,46 +1691,46 @@ Enter an option.
     """
     def enter(self):
         formatborders("POT SHOP: ALEXNADRIA")
-        print self.item_text
-        option = raw_input(">")
+        print(self.item_text)
+        option = input(">")
 
         try:
 
             if option in ['1', 'potion', 'Potion']:
-                amount = raw_input("Enter a quantity to buy: \n>")
+                amount = input("Enter a quantity to buy: \n>")
                 if PARTY.gil >= int(amount) * 25:
                     PARTY.inv.add_item(potion, int(amount))
                     PARTY.gil -= int(amount) * 25
-                    print "Bought x%d potions for %d Gil" % (int(amount), int(amount) * 25)
-                    print '-' * 80
+                    print("Bought x%d potions for %d Gil" % (int(amount), int(amount) * 25))
+                    print('-' * 80)
                 else:
-                    print "Not enough minerals."
+                    print("Not enough minerals.")
                 return 'itemshop1'
             elif option in ['2', 'ether', 'Ether']:
-                amount = raw_input("Enter a quantity to buy: \n>")
+                amount = input("Enter a quantity to buy: \n>")
                 if PARTY.gil >= int(amount) * 100:
                     PARTY.inv.add_item(ether, int(amount))
                     PARTY.gil -= int(amount) * 100
-                    print "Bought x%d ethers for %d Gil" % (int(amount), int(amount) * 100)
-                    print '-' * 80
+                    print("Bought x%d ethers for %d Gil" % (int(amount), int(amount) * 100))
+                    print('-' * 80)
                 else:
-                    print "Not enough vespene gas."
+                    print("Not enough vespene gas.")
                 return 'itemshop1'
             elif option in ['3', 'phoenix', 'down', 'Phoenix', 'Down']:
-                amount = raw_input("Enter a quantity to buy: \n>")
+                amount = input("Enter a quantity to buy: \n>")
                 if PARTY.gil >= int(amount) * 500:
                     PARTY.inv.add_item(phoenixdown, int(amount))
                     PARTY.gil -= int(amount) * 500
-                    print "Bought x%d phoenix downss for %d Gil" % (int(amount), int(amount) * 500)
-                    print '-' * 80
+                    print("Bought x%d phoenix downss for %d Gil" % (int(amount), int(amount) * 500))
+                    print('-' * 80)
                 else:
-                    print "Build more supply depots."
+                    print("Build more supply depots.")
                 return 'itemshop1'
             else:
-                print "Proper option not selected."
+                print("Proper option not selected.")
         except:
-            print "Please enter an integer for the item amount."
-        print "Returning to town. "
+            print("Please enter an integer for the item amount.")
+        print("Returning to town. ")
 
         return 'town1'
 
@@ -1751,23 +1753,23 @@ He also offers you licentious 'favors' with a wink.
     """
     def enter(self):
         formatborders("INN: ALEXANDRIA")
-        print self.inn_text
-        option = raw_input(">")
+        print(self.inn_text)
+        option = input(">")
         if option in ['1', 'rest', 'Rest', 'R', 'r']:
             if PARTY.gil >= 100:
                 self.restore_party()
 
                 PARTY.gil -= 100
             else:
-                print "The inkeeper rages at you trying to stay without enough money."
-                print "You flee back to town as he picks up a shotgun an aims it at you."
+                print("The inkeeper rages at you trying to stay without enough money.")
+                print("You flee back to town as he picks up a shotgun an aims it at you.")
                 return 'town1'
         if option in ['2', 'massage', 'Massage', 'm', 'M']:
             if PARTY.gil >= 100000000:
-                print "OH BABY."
+                print("OH BABY.")
                 PARTY.gil -= 100000000
             else:
-                print "You aren't yet ready for such things."
+                print("You aren't yet ready for such things.")
                 return 'town1'
 
         return 'town1'
@@ -1797,46 +1799,46 @@ Enter an option.
     """
     def enter(self):
             formatborders("WEAPON SHOP: ALEXNADRIA")
-            print self.item_text
-            option = raw_input(">")
+            print(self.item_text)
+            option = input(">")
 
             try:
 
                 if option in ['1', 'potion', 'Potion']:
-                    amount = raw_input("Enter a quantity to buy: \n>")
+                    amount = input("Enter a quantity to buy: \n>")
                     if PARTY.gil >= int(amount) * 25:
                         PARTY.inv.add_item(potion, int(amount))
                         PARTY.gil -= int(amount) * 25
-                        print "Bought x%d potions for %d Gil" % (int(amount), int(amount) * 25)
-                        print '-' * 80
+                        print("Bought x%d potions for %d Gil" % (int(amount), int(amount) * 25))
+                        print('-' * 80)
                     else:
-                        print "Not enough minerals."
+                        print("Not enough minerals.")
                     return 'itemshop1'
                 elif option in ['2', 'ether', 'Ether']:
-                    amount = raw_input("Enter a quantity to buy: \n>")
+                    amount = input("Enter a quantity to buy: \n>")
                     if PARTY.gil >= int(amount) * 100:
                         PARTY.inv.add_item(ether, int(amount))
                         PARTY.gil -= int(amount) * 100
-                        print "Bought x%d ethers for %d Gil" % (int(amount), int(amount) * 100)
-                        print '-' * 80
+                        print("Bought x%d ethers for %d Gil" % (int(amount), int(amount) * 100))
+                        print('-' * 80)
                     else:
-                        print "Not enough vespene gas."
+                        print("Not enough vespene gas.")
                     return 'itemshop1'
                 elif option in ['3', 'phoenix', 'down', 'Phoenix', 'Down']:
-                    amount = raw_input("Enter a quantity to buy: \n>")
+                    amount = input("Enter a quantity to buy: \n>")
                     if PARTY.gil >= int(amount) * 500:
                         PARTY.inv.add_item(phoenixdown, int(amount))
                         PARTY.gil -= int(amount) * 500
-                        print "Bought x%d phoenix downss for %d Gil" % (int(amount), int(amount) * 500)
-                        print '-' * 80
+                        print("Bought x%d phoenix downss for %d Gil" % (int(amount), int(amount) * 500))
+                        print('-' * 80)
                     else:
-                        print "Build more supply depots."
+                        print("Build more supply depots.")
                     return 'itemshop1'
                 else:
-                    print "Proper option not selected."
+                    print("Proper option not selected.")
             except:
-                print "Please enter an integer for the item amount."
-            print "Returning to town. "
+                print("Please enter an integer for the item amount.")
+            print("Returning to town. ")
 
             return 'town1'
 
@@ -1859,13 +1861,13 @@ class Battle(Scene):
 
 
     def enter(self, current_area):
-        print "Entering a battle from %s. " % current_area
+        print("Entering a battle from %s. " % current_area)
         mobs = self.generate_monsters(current_area)
         Hero_Classes = [Warrior, BlackMage, WhiteMage, Theif]
         formatborders("BATTLE")
 
         for monster in mobs:
-            print self.monster_text[randint(0, len(self.monster_text) - 1)] % monster.__class__.__name__
+            print(self.monster_text[randint(0, len(self.monster_text) - 1)] % monster.__class__.__name__)
 
         time_table, name_table = self.generate_turn_table(mobs)
 
@@ -1882,23 +1884,28 @@ class Battle(Scene):
 
             index = 0
             for time in time_table:
-
+                # print(time) #delete
+                # print(time_table) #delete
 
                 if time_table[index] == 0:
                     current = name_table[index]
+                    # print(f"Now: {current.__class__} is acting") # delete
                     if current.hp > 0 and current.__class__ in Hero_Classes:
                         alive_table[index] = 1
                     if current.hp > 0:
                         damage, target = current.act(name_table)
                         name_table[target].hp -= damage
-                        time_table[index] = current.time
+                        #print(f"updating : {time_table[index]} with {int(current.time)} for {index} and {current.__class__}" ) # delete
+                        time_table[index] = int(current.time)
+                        #print(time_table) # delete
+                        PARTY.display_panel()
 
                     if name_table[target].hp <= 0 and (name_table[target].__class__ in Hero_Classes) and (current.__class__ not in Hero_Classes):
-                        name_table[target].hp =0
+                        name_table[target].hp = 0
                         alive_table[target] = 0
 
 
-                        print "%s has been slain." % name_table[target].name
+                        print("%s has been slain." % name_table[target].name)
                         if 1 not in alive_table:
                             battle_logic = 2
                             formatborders("GAME OVER")
@@ -1906,24 +1913,24 @@ class Battle(Scene):
 
                     if name_table[target].__class__ not in Hero_Classes:
                         if name_table[target].hp <= 0:
-                            print "%s has been slain." % name_table[target].__class__.__name__
+                            print("%s has been slain." % name_table[target].__class__.__name__)
                             loot.extend(name_table[target].rewards())
                             battle_exp += name_table[target].exp
                             gil_reward += randint(1, name_table[target].lev ** 1.5)
                             del name_table[target]
                             del time_table[target]
                             del mobs[target - 4]
-                    if current.hp > 0 and current.__class__ in Hero_Classes:
-                        PARTY.display_panel()
+                    # if current.hp > 0 and current.__class__ in Hero_Classes:
+                    #     PARTY.display_panel()
                     if mobs and (current.__class__ in Hero_Classes) and current.hp > 0:
                         self.display_panel(mobs)
                     if len(mobs) == 0:
                         if loot:
                             self.display_loot(loot)
-                        print "Recieved %s exp" % battle_exp
+                        print("Recieved %s exp" % battle_exp)
                         self.award_exp(battle_exp)
                         PARTY.gil += gil_reward
-                        print "Battle over"
+                        print("Battle over")
                         battle_logic = 1
                         break
                 time_table[index] -= 1
@@ -1947,14 +1954,14 @@ class Battle(Scene):
         turn_table = []
         turn_names = []
         for hero in PARTY.get_party_members():
-            turn_table.append(hero.time)
+            turn_table.append(int(hero.time))
             turn_names.append(hero)
         for monster in monsters:
-            turn_table.append(monster.time)
+            turn_table.append(int(monster.time))
             turn_names.append(monster)
 
-        # print turn_table
-        # print turn_names
+        # print(turn_table) #Delete
+        # print(turn_names) #Delete
         return turn_table, turn_names
 
     def display_hp(self, monsters):
@@ -1964,7 +1971,7 @@ class Battle(Scene):
         for monster in monsters:
             monster_hp.append("%d/%d" % (monster.hp, monster.maxhp))
 
-        print display_format.format(*monster_hp)
+        print(display_format.format(*monster_hp))
 
     def display_monster_names(self, monsters):
         display_format = "{:<10}"+ ("{:^10}" * len(monsters))
@@ -1972,7 +1979,7 @@ class Battle(Scene):
         for monster in monsters:
             monster_names.append(monster.__class__.__name__)
 
-        print display_format.format(*monster_names)
+        print(display_format.format(*monster_names))
 
 
     def display_panel(self, monsters):
@@ -1980,7 +1987,7 @@ class Battle(Scene):
 
         self.display_monster_names(monsters)
         self.display_hp(monsters)
-        print "-" * 80
+        print("-" * 80)
 
     def display_loot(self, item_list):
         text_list = []
@@ -2046,9 +2053,9 @@ To exit the game, enter the menu and select option 8.
     def enter(self, scenename):
 
         formatborders("HELP")
-        print self.help_text
+        print(self.help_text)
 
-        go_back = raw_input()
+        go_back = input()
 
         return scenename
 
@@ -2099,13 +2106,13 @@ anything other than the options given (q for instance).
     def enter(self, scenename):
 
         formatborders("HELP")
-        print self.help_text
+        print(self.help_text)
 
-        go_back = raw_input(">")
+        go_back = input(">")
 
         if go_back in ['1', 'stat', 's', 'S']:
-            print self.stat_text
-            go = raw_input()
+            print(self.stat_text)
+            go = input()
 
         return 'menu'
 
@@ -2113,12 +2120,12 @@ class Debug(Scene):
 
     def enter(self, scenename):
 
-        print "Debug menu"
+        print("Debug menu")
 
-        print """
-        1. print MP stat for hero 1
-        2. print dir(hero1)
-        3. print party stats
+        print("""
+        1. print(MP stat for hero 1)
+        2. print(dir(hero1))
+        3. print(party stats)
         4. add 90 exp to party
         5. kill hero 1 add phoenix down to inventory
         6. Enter command
@@ -2128,15 +2135,15 @@ class Debug(Scene):
         10. Levelup heros to 50
         11. Add Cure and fire to spellbook
 
-        """
+        """)
 
 
-        option = raw_input("\n>")
+        option = input("\n>")
 
         if option == '1':
             PARTY.display_stat(PARTY.hero1.mp)
         if option == '2':
-            print dir(PARTY.hero1)
+            print(dir(PARTY.hero1))
         if option == '3':
             PARTY.display_full_panel()
         if option == '4':
@@ -2146,7 +2153,7 @@ class Debug(Scene):
             PARTY.hero1.hp = 0
             PARTY.inv.add_item(phoenixdown, 1)
         if option == '6':
-            command = raw_input("Enter a Command\n>")
+            command = input("Enter a Command\n>")
             exec(command)
         if option == '7':
             for hero in PARTY.get_party_members():
@@ -2185,15 +2192,15 @@ class GameOver(Scene):
 
 
     def enter(self):
-        print self.game_over_text
-        option = raw_input(">")
+        print(self.game_over_text)
+        option = input(">")
 
         if option in ['1', 'l', 'L', 'load', 'Load']:
             return 'load'
         if option in ['2', 'm', 'M', 'main', 'Main', 'menu', 'Menu']:
             return 'start'
         if option in ['3', 'stop', 's']:
-            print "I <3 pi. "
+            print("I <3 pi. ")
             quit()
         if option == None:
             "Please select an option."
@@ -2263,42 +2270,42 @@ class MemoryCard(object):
     def display_saves(self):
         formatborders("SAVE SLOTS")
         try:
-            print "SLOT 1 : %s" % Map.scenes[self.save1.scene_name].__class__.__name__
+            print("SLOT 1 : %s" % Map.scenes[self.save1.scene_name].__class__.__name__)
             for hero in self.save1.party.get_party_members():
-                print hero.name.upper().ljust(10), "LVL: ", str(hero.lev).ljust(2),
+                print(hero.name.upper().ljust(10), "LVL: ", str(hero.lev).ljust(2),)
         except:
-            print "SLOT 1 : EMPTY"
-        print "\n"
+            print("SLOT 1 : EMPTY")
+        print("\n")
         try:
-            print "SLOT 2 : %s" % Map.scenes[self.save2.scene_name].__class__.__name__
+            print("SLOT 2 : %s" % Map.scenes[self.save2.scene_name].__class__.__name__)
             for hero in self.save2.party.get_party_members():
-                print hero.name.upper().ljust(10), "LVL: ", str(hero.lev).ljust(2),
+                print(hero.name.upper().ljust(10), "LVL: ", str(hero.lev).ljust(2),)
         except:
-            print "SLOT 2 : EMPTY"
-        print "\n"
+            print("SLOT 2 : EMPTY")
+        print("\n")
         try :
-            print "SLOT 3 : %s" % Map.scenes[self.save3.scene_name].__class__.__name__
+            print("SLOT 3 : %s" % Map.scenes[self.save3.scene_name].__class__.__name__)
             for hero in self.save3.party.get_party_members():
-                print hero.name.upper().ljust(10), "LVL: ", str(hero.lev).ljust(2),
+                print(hero.name.upper().ljust(10), "LVL: ", str(hero.lev).ljust(2),)
         except:
-            print "SLOT 3 : EMPTY"
-        print "\n"
+            print("SLOT 3 : EMPTY")
+        print("\n")
 
         formatborders("Enter the slot number or press enter to return to previous screen")
-        print  "\n"
+        print( "\n")
 
 
 def formatborders(textinput):
-    print '=' * 80
-    print textinput
-    print '=' * 80
+    print('=' * 80)
+    print(textinput)
+    print('=' * 80)
 
 def battleborders(textinput):
-    print '-' * 80
-    print textinput
-    print '-' * 80
+    print('-' * 80)
+    print(textinput)
+    print('-' * 80)
 def nl():
-    print "\n"
+    print("\n")
 
 PARTY = None
 Hero_Classes= [Warrior, BlackMage, WhiteMage, Theif]
